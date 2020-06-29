@@ -265,10 +265,10 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = global::TRPOLAB2.Properties.Resources.ворк;
-            this.pictureBox2.Location = new System.Drawing.Point(417, 38);
+            this.pictureBox2.Location = new System.Drawing.Point(416, 35);
             this.pictureBox2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(319, 227);
+            this.pictureBox2.Size = new System.Drawing.Size(319, 230);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 4;
             this.pictureBox2.TabStop = false;

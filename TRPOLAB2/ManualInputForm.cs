@@ -161,7 +161,7 @@ namespace TRPOLAB2
 
             System.Drawing.Point location = pictureBox2.Location;
             System.Drawing.Point coordMouse = ActiveForm.PointToClient(locateCursor);
-            inputX = ((double)coordMouse.X - location.X) / rectangle.Width * 10.7D;
+            inputX = ((double)coordMouse.X - location.X) / rectangle.Width * 10.6D;
             inputY = ((double)location.Y + rectangle.Height - coordMouse.Y) / rectangle.Height * 7D;
             inspection(new Point(inputX, inputY));
             SolidBrush myBrush = new SolidBrush(Color.Red);
