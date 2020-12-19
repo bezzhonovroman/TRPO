@@ -14,15 +14,26 @@ public class PlayerContoller : MonoBehaviour
     public Text Healthbar;
     public bool isActionButtonPressed;
     public bool isGround;
+    private bool damageCooldown;
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D playerRigidbody;
     private Animator animation_script;
+    private AudioSource clip;
+
+
+
+    IEnumerator damageTimer()
+    {
+        yield return new WaitForSeconds(1f);
+        damageCooldown = false;
+    }
 
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animation_script = GetComponent<Animator>();
+        clip = GetComponent<AudioSource>();
         Healthbar.text = lives.ToString();
         isActionButtonPressed = false;
         isGround = true;
@@ -34,7 +45,25 @@ public class PlayerContoller : MonoBehaviour
         if (collistionState.gameObject.tag == "Ground")
         {
             isGround = true;
-        } 
+        }
+
+        if (collistionState.gameObject.tag == "Enemy")
+        {
+            
+            if (!damageCooldown)
+            {
+                if (lives == 1)
+                {
+                    SceneManager.LoadScene("Menu");
+                }
+                damageCooldown = true;
+                lives--;
+                Healthbar.text = lives.ToString();
+                clip.Play();
+                animation_script.SetInteger("State", 4);          
+                StartCoroutine(damageTimer());
+            }
+        }
     }
     public void OnTriggerStay2D(Collider2D trigger)
     {
@@ -60,6 +89,8 @@ public class PlayerContoller : MonoBehaviour
         {
             transform.position = teleportPoint.position;
         }
+        
+        
     }
     public void Death()
     {
@@ -122,8 +153,8 @@ public class PlayerContoller : MonoBehaviour
         {
             Jump();
         }
-       
-        if (!Input.anyKey)
+
+        if (!Input.GetButton("Horizontal") && !Input.GetButton("Jump") && isGround && !damageCooldown) 
         {
             animation_script.SetInteger("State", 0);
         }
